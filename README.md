@@ -1,85 +1,153 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Projeto CRM
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<br />
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<div align="center">
+    <img src="https://i.imgur.com/icgjsRQ.png" title="source: imgur.com" width="50%"/>
+</div>
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<br /><br />
 
-## Project setup
+## 1. O que é um Sistema de CRM?
 
-```bash
-$ npm install
+**CRM (Customer Relationship Management)** é um conceito que abrange estratégias, práticas e tecnologias usadas por empresas para gerenciar e analisar as interações com seus clientes e potenciais clientes ao longo de todo o ciclo de relacionamento. O objetivo principal de um sistema CRM é melhorar o atendimento, aumentar a fidelização e, como resultado, impulsionar as vendas.
+
+Um sistema de CRM oferece diversos benefícios:
+
+1. Centralização de dados
+2. Personalização do atendimento
+3. Automação de tarefas
+4. Análise de desempenho
+
+Esses sistemas geralmente operam por meio de plataformas web ou aplicativos móveis, permitindo que os usuários cadastrem clientes, gerenciem oportunidades de negócios e acompanhem relatórios de desempenho em tempo real.
+
+<br />
+
+## 2. Sobre esta API
+
+Neste projeto, será desenvolvido um **Mínimo Produto Viável (MVP)** de um sistema de **CRM**, implementando os CRUDs (Create, Read, Update, Delete) para os principais registros de um sistema de gestão de relacionamento com o cliente. Esses registros são essenciais para permitir que empresas gerenciem de forma eficiente suas interações com os clientes. A solução abrangerá as três entidades mais comuns em um sistema CRM:
+
+1. **Usuários**: Representam os funcionários ou operadores que utilizam o sistema de CRM para gerenciar clientes e vendas.  
+   **Exemplo:** Daphne é vendedora em uma empresa de software e utiliza o sistema CRM. Ela possui permissões para criar e gerenciar oportunidades de venda para seus clientes.
+2. **Clientes**: Representam os clientes finais ou empresas com as quais a organização mantém ou deseja iniciar um relacionamento comercial.  
+   **Exemplo:** Velma é cliente da empresa de software e foi cadastrada no CRM por Daphne para facilitar o acompanhamento das negociações e futuras interações.
+
+3. **Oportunidades**: São as possibilidades de vendas ou novos negócios com clientes.  
+   **Exemplo:** Daphne identificou uma **oportunidade** para vender um novo Sistema de Gestão para Velma. Ela registrou a oportunidade no CRM, com um valor estimado de R$ 15.000 e uma previsão de fechamento em 30 dias.
+
+<br />
+
+### 2.1. Exemplo Prático - Fluxo no CRM:
+
+1. O **Usuário** cadastra um **Cliente** no sistema.
+2. O usuário cria uma **Oportunidade** de negócio associada a esse cliente, detalhando o produto ou serviço em negociação. O status inicial da oportunidade será **Aberta (1)**.
+3. Se a negociação for bem-sucedida, a **Oportunidade** é convertida em uma venda, e o status muda para **Fechada (2)**.
+4. Caso a negociação não seja concluída, o status será alterado para **Perdida (3)**, mas o **Cliente** permanece registrado no sistema para futuras interações.
+
+### 2.2. Principais Funcionalidades
+
+1. Cadastro e gerenciamento de usuários
+2. Registro e gerenciamento de clientes
+3. Criação e gerenciamento de oportunidades
+4. Alteração do status
+
+<br /><br />
+
+## 3. Diagrama de Classes
+
+```mermaid
+classDiagram
+class Cliente {
+  - id : number
+  - nome : string
+  - email : string
+  - foto : string
+  - historico : string
+  - oportunidade : []Oportunidade
+  + findAll()
+  + findById(id : number)
+  + findByNome(nome : string)
+  + create(cliente : Cliente)
+  + update(cliente : Cliente)
+  + delete(id : number)
+}
+class Oportunidade {
+  - id : number
+  - nome : string
+  - valor : number
+  - dataAbertura : Date
+  - dataFechamento : Date
+  - status : number
+  - cliente : Cliente
+  - usuario : Usuario
+  + findAll()
+  + findById(id : number)
+  + findByNome(nome : string)
+  + create(oportunidade : Oportunidade)
+  + update(oportunidade : Oportunidade)
+  + delete(id : number)
+}
+class Usuario {
+  - id : number
+  - nome : string
+  - usuario : string
+  - senha : string
+  - foto : string
+  - oportunidade : []Oportunidade
+  + findAll()
+  + findById(id : number)
+  + create(usuario : Usuario)
+  + update(usuario : Usuario)
+  + autenticar(usuariologin : UsuarioLogin)
+}
+class UsuarioLogin{
+  - id : number
+  - nome : string
+  - usuario : string
+  - senha : string
+  - foto : string
+  - token : string
+}
+Cliente --> Oportunidade
+Usuario --> Oportunidade
 ```
 
-## Compile and run the project
+**Observações Importantes:**
 
-```bash
-# development
-$ npm run start
+- O atributo **status**, da entidade **Oportunidade**, foi definido com o tipo **number** e receberá apenas os seguintes valores:
+  - **1** - *Aberta*
+  - **2** - *Fechada*
+  - **3** - *Perdida*
 
-# watch mode
-$ npm run start:dev
+<br /><br />
 
-# production mode
-$ npm run start:prod
-```
+## 4. Diagrama Entidade-Relacionamento (DER)
 
-## Run tests
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+<div align="center">
+    <img src="https://i.imgur.com/BRotN20.png" title="source: imgur.com" />
+</div>
 
-# test coverage
-$ npm run test:cov
-```
 
-## Resources
+<br /><br />
 
-Check out a few resources that may come in handy when working with NestJS:
+## 5. Tecnologias utilizadas
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+| Item                          | Descrição  |
+| ----------------------------- | ---------- |
+| **Servidor**                  | Node JS    |
+| **Linguagem de programação**  | TypeScript |
+| **Framework**                 | Nest JS    |
+| **ORM**                       | TypeORM    |
+| **Banco de dados Relacional** | MySQL      |
 
-## Support
+<br /><br />
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 6. Configuração e Execução
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+1. Clone o repositório
+2. Instale as dependências: `npm install`
+3. Configure o banco de dados no arquivo `app.module.ts`
+4. Execute a aplicação: `npm run start:dev`
