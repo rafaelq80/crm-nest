@@ -28,6 +28,6 @@ import { ClienteModule } from './cliente/cliente.module';
     UsuarioModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
