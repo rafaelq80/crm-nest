@@ -1,6 +1,6 @@
 ﻿import { ApiProperty } from "@nestjs/swagger";
 import { Transform, TransformFnParams } from "class-transformer";
-import { IsDateString, IsNotEmpty, IsNumber, IsOptional, Max, Min } from "class-validator";
+import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsPositive, Max, Min } from "class-validator";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Cliente } from "../../cliente/entities/cliente.entity";
 import { Usuario } from "../../usuario/entities/usuario.entity";
@@ -35,6 +35,7 @@ export class Oportunidade{
     @Min(1)
     @Max(3)
     @IsOptional()
+    @IsPositive()
     @Column({ type: "int", default: 1 })
     status: number
 

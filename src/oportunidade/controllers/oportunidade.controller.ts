@@ -1,51 +1,67 @@
-﻿import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
-import { OportunidadeService } from "../services/oportunidade.service";
-import { Oportunidade } from "../entities/oportunidade.entity";
-import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
-import { ApiTags, ApiBearerAuth } from "@nestjs/swagger";
+﻿import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
+import { OportunidadeService } from '../services/oportunidade.service';
+import { Oportunidade } from '../entities/oportunidade.entity';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard)
-@Controller("/oportunidades")
+@Controller('/oportunidades')
 @ApiTags('Oportunidade')
 @ApiBearerAuth()
-export class OportunidadeController{
+export class OportunidadeController {
+  constructor(private readonly oportunidadeService: OportunidadeService) {}
 
-    constructor(private readonly oportunidadeService: OportunidadeService){}
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  findAll(): Promise<Oportunidade[]> {
+    return this.oportunidadeService.findAll();
+  }
 
-    @Get()
-    @HttpCode(HttpStatus.OK) 
-    findAll(): Promise<Oportunidade[]>{
-        return this.oportunidadeService.findAll();
-    }
-    
-    @Get('/:id')
-    @HttpCode(HttpStatus.OK) 
-    findById(@Param('id', ParseIntPipe) id: number): Promise<Oportunidade>{
-        return this.oportunidadeService.findById(id);
-    }
+  @Get('/:id')
+  @HttpCode(HttpStatus.OK)
+  findById(@Param('id', ParseIntPipe) id: number): Promise<Oportunidade> {
+    return this.oportunidadeService.findById(id);
+  }
 
-    @Get('/nome/:nome')
-    @HttpCode(HttpStatus.OK) 
-    findByNome(@Param('nome') nome: string): Promise<Oportunidade[]>{
-        return this.oportunidadeService.findByNome(nome);
-    }
-    
-    @Post()
-    @HttpCode(HttpStatus.CREATED) 
-    create(@Body() oportunidade: Oportunidade): Promise<Oportunidade> {
-        return this.oportunidadeService.create(oportunidade);
-    }
+  @Get('/nome/:nome')
+  @HttpCode(HttpStatus.OK)
+  findByNome(@Param('nome') nome: string): Promise<Oportunidade[]> {
+    return this.oportunidadeService.findByNome(nome);
+  }
 
-    @Put()
-    @HttpCode(HttpStatus.OK) 
-    update(@Body() oportunidade: Oportunidade): Promise<Oportunidade> {
-        return this.oportunidadeService.update(oportunidade);
-    }
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  create(@Body() oportunidade: Oportunidade): Promise<Oportunidade> {
+    return this.oportunidadeService.create(oportunidade);
+  }
 
-    @Delete('/:id')
-    @HttpCode(HttpStatus.NO_CONTENT) 
-    delete(@Param('id', ParseIntPipe) id: number){
-        return this.oportunidadeService.delete(id);
-    }
+  @Put()
+  @HttpCode(HttpStatus.OK)
+  update(@Body() oportunidade: Oportunidade): Promise<Oportunidade> {
+    return this.oportunidadeService.update(oportunidade);
+  }
 
+  @Delete('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.oportunidadeService.delete(id);
+  }
+
+  @Put(':id/status/:status')
+  @HttpCode(HttpStatus.OK)
+  changeStatus(@Param('id') id: number, @Param('status') status: number): Promise<Oportunidade> {
+    return this.oportunidadeService.mudarStatus(id, status);
+  }
 }

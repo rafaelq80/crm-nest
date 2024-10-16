@@ -96,4 +96,33 @@ export class OportunidadeService{
         
     }
 
+    async mudarStatus(id: number, status: number): Promise<Oportunidade> {
+
+        const novoStatus = Number(status);
+
+        if (novoStatus < 1 || novoStatus > 3) {
+            throw new HttpException(
+                'O Status deve ser um valor entre 1 e 3',
+                HttpStatus.BAD_REQUEST
+            );
+        }
+
+        let buscaOportunidade = await this.findById(id);
+
+        if (!buscaOportunidade)
+            throw new HttpException('Oportunidade não encontrado!', HttpStatus.NOT_FOUND);
+
+        if (buscaOportunidade.status === 3) {
+            throw new HttpException(
+                'Não é possível alterar o status de uma oportunidade perdida',
+                HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return await this.oportunidadeRepository.save({
+            ...buscaOportunidade,
+            status: novoStatus
+        });
+    }
+
 }

@@ -119,6 +119,11 @@ Usuario --> Oportunidade
   - **1** - *Aberta*
   - **2** - *Fechada*
   - **3** - *Perdida*
+- O método **mudarStatus** deve atender a alguns requisitos:
+  - Receber os parâmetros do tipo number **id e status**
+  - Verificar se o status recebido é um **número inteiro entre 1 e 3**
+  - O método não deve aceitar a mudança de status caso o status atual já seja **3 (Perdida)**
+  - Caso todas as condições sejam satisfeitas, o único valor alterado será o **status**
 
 <br /><br />
 
@@ -129,6 +134,7 @@ Usuario --> Oportunidade
 <div align="center">
     <img src="https://i.imgur.com/BRotN20.png" title="source: imgur.com" />
 </div>
+
 
 
 <br /><br />
@@ -151,3 +157,4 @@ Usuario --> Oportunidade
 2. Instale as dependências: `npm install`
 3. Configure o banco de dados no arquivo `app.module.ts`
 4. Execute a aplicação: `npm run start:dev`
+
