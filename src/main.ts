@@ -9,20 +9,20 @@ async function bootstrap() {
   const config = new DocumentBuilder()
   .setTitle('Projeto CRM')
   .setDescription('Projeto CRM')
-  .setContact("Generation Brasil","http://www.generationbrasil.online","generation@email.com")
+  .setContact("Generation Brasil","https://brazil.generation.org","generation@email.com")
   .setVersion('1.0')
   .addBearerAuth()
   .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/swagger', app, document);
     
-  process.env.TZ = '-03:00'; // Configuramos o fuso-horário
+  process.env.TZ = '-03:00';
 
-  app.useGlobalPipes(new ValidationPipe()); // Habilitamos o Validation Globalmente
+  app.useGlobalPipes(new ValidationPipe());
 
-  app.enableCors(); // Habilitamos requisições de outras origens (Servidores)
+  app.enableCors();
 
-  await app.listen(4000);
+  await app.listen(4001);
 
 }
 bootstrap();
