@@ -50,19 +50,15 @@ export class ClienteService {
   }
 
   async update(cliente: Cliente): Promise<Cliente> {
-    let buscaCliente = await this.findById(cliente.id);
-
-    if (!buscaCliente || !cliente.id)
-      throw new HttpException('Cliente não encontrado!', HttpStatus.NOT_FOUND);
+    
+    await this.findById(cliente.id);
 
     return await this.clienteRepository.save(cliente);
   }
 
   async delete(id: number): Promise<DeleteResult> {
-    let buscaCliente = await this.findById(id);
-
-    if (!buscaCliente)
-      throw new HttpException('Cliente não encontrado!', HttpStatus.NOT_FOUND);
+    
+    await this.findById(id);
 
     return await this.clienteRepository.delete(id);
   }

@@ -1,128 +1,116 @@
-﻿import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { DeleteResult, ILike, Repository } from "typeorm";
-import { ClienteService } from "../../cliente/services/cliente.service";
-import { Oportunidade } from "../entities/oportunidade.entity";
+﻿import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, ILike, Repository } from 'typeorm';
+import { ClienteService } from '../../cliente/services/cliente.service';
+import { Oportunidade } from '../entities/oportunidade.entity';
 
 @Injectable()
-export class OportunidadeService{
+export class OportunidadeService {
+  constructor(
+    @InjectRepository(Oportunidade)
+    private oportunidadeRepository: Repository<Oportunidade>,
+    private clienteService: ClienteService,
+  ) {}
 
-    constructor(
-        @InjectRepository(Oportunidade)
-        private oportunidadeRepository: Repository<Oportunidade>,
-        private clienteService: ClienteService
-    ) {}
+  async findAll(): Promise<Oportunidade[]> {
+    return await this.oportunidadeRepository.find({
+      relations: {
+        cliente: true,
+        usuario: true,
+      },
+    });
+  }
 
-    async findAll(): Promise<Oportunidade[]>{
+  async findById(id: number): Promise<Oportunidade> {
+    let buscaOportunidade = await this.oportunidadeRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        cliente: true,
+        usuario: true,
+      },
+    });
 
-        return await this.oportunidadeRepository.find({
-            relations:{
-                cliente: true,
-                usuario: true
-            }
-        });
+    if (!buscaOportunidade)
+      throw new HttpException(
+        'A Oportunidade não foi encontrada!',
+        HttpStatus.NOT_FOUND,
+      );
+
+    return buscaOportunidade;
+  }
+
+  async findByNome(nome: string): Promise<Oportunidade[]> {
+    return await this.oportunidadeRepository.find({
+      where: {
+        nome: ILike(`%${nome}%`),
+      },
+      relations: {
+        cliente: true,
+        usuario: true,
+      },
+    });
+  }
+
+  async create(oportunidade: Oportunidade): Promise<Oportunidade> {
+    if (!oportunidade.cliente)
+      throw new HttpException(
+        'Os dados do Cliente não foram informados!',
+        HttpStatus.BAD_REQUEST,
+      );
+
+    await this.clienteService.findById(oportunidade.cliente.id);
+
+    return await this.oportunidadeRepository.save(oportunidade);
+  }
+
+  async update(oportunidade: Oportunidade): Promise<Oportunidade> {
+    await this.findById(oportunidade.id);
+
+    if (!oportunidade.cliente)
+      throw new HttpException(
+        'Os dados do Cliente não foram informados!',
+        HttpStatus.BAD_REQUEST,
+      );
+
+    await this.clienteService.findById(oportunidade.cliente.id);
+
+    return await this.oportunidadeRepository.save(oportunidade);
+
+  }
+
+  async delete(id: number): Promise<DeleteResult> {
+    
+    await this.findById(id);
+
+    return await this.oportunidadeRepository.delete(id);
+
+  }
+
+  async mudarStatus(id: number, status: number): Promise<Oportunidade> {
+    
+    const novoStatus = Number(status);
+
+    if (novoStatus < 1 || novoStatus > 3) {
+      throw new HttpException(
+        'O Status deve ser um valor entre 1 e 3',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
-    async findById(id: number): Promise<Oportunidade>{
+    let buscaOportunidade = await this.findById(id);
 
-        let buscaOportunidade = await this.oportunidadeRepository.findOne({
-            where:{
-                id
-            },
-            relations:{
-                cliente: true,
-                usuario: true
-            }
-        })
-
-        if(!buscaOportunidade)
-            throw new HttpException('A Oportunidade não foi encontrada!', HttpStatus.NOT_FOUND);
-
-        return buscaOportunidade;
+    if (buscaOportunidade.status === 3) {
+      throw new HttpException(
+        'Não é possível alterar o status de uma oportunidade perdida',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
-    async findByNome(nome: string): Promise<Oportunidade[]>{
-
-       return await this.oportunidadeRepository.find({
-            where:{
-                nome: ILike(`%${nome}%`)
-            },
-            relations:{
-                cliente: true,
-                usuario: true
-            }
-        })
-
-    }
-
-    async create(oportunidade: Oportunidade): Promise<Oportunidade> {
-
-        if(oportunidade.cliente){
-
-            await this.clienteService.findById(oportunidade.cliente.id)
-
-            return await this.oportunidadeRepository.save(oportunidade);
-        }
-
-        return await this.oportunidadeRepository.save(oportunidade);
-    }
-
-    async update(oportunidade: Oportunidade): Promise<Oportunidade> {
-        
-        let buscaOportunidade = await this.findById(oportunidade.id);
-
-        if(!buscaOportunidade || !oportunidade.id)
-            throw new HttpException('A Oportunidade não foi encontrada!', HttpStatus.NOT_FOUND)
-        
-        if(oportunidade.cliente){
-
-            await this.clienteService.findById(oportunidade.cliente.id)
-
-            return await this.oportunidadeRepository.save(oportunidade);
-        }
-
-        return await this.oportunidadeRepository.save(oportunidade);
-
-    }
-
-    async delete(id: number): Promise<DeleteResult>{
-
-        let buscaOportunidade = await this.findById(id)
-
-        if(!buscaOportunidade)
-            throw new HttpException('A Oportunidade não foi encontrada!', HttpStatus.NOT_FOUND);
-
-        return await this.oportunidadeRepository.delete(id);
-        
-    }
-
-    async mudarStatus(id: number, status: number): Promise<Oportunidade> {
-
-        const novoStatus = Number(status);
-
-        if (novoStatus < 1 || novoStatus > 3) {
-            throw new HttpException(
-                'O Status deve ser um valor entre 1 e 3',
-                HttpStatus.BAD_REQUEST
-            );
-        }
-
-        let buscaOportunidade = await this.findById(id);
-
-        if (!buscaOportunidade)
-            throw new HttpException('Oportunidade não encontrado!', HttpStatus.NOT_FOUND);
-
-        if (buscaOportunidade.status === 3) {
-            throw new HttpException(
-                'Não é possível alterar o status de uma oportunidade perdida',
-                HttpStatus.BAD_REQUEST
-            );
-        }
-
-        return await this.oportunidadeRepository.save({
-            ...buscaOportunidade,
-            status: novoStatus
-        });
-    }
-
+    return await this.oportunidadeRepository.save({
+      ...buscaOportunidade,
+      status: novoStatus,
+    });
+  }
 }
