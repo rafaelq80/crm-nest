@@ -33,6 +33,6 @@ export class Cliente {
 
     @OneToMany(() => Oportunidade, (oportunidade) => oportunidade.cliente)
     @ApiProperty() 
-    oportunidade: Oportunidade[]
+    oportunidade?: Oportunidade[]
 
 }

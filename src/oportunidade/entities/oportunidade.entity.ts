@@ -20,6 +20,7 @@ export class Oportunidade{
  
     @IsNumber({ maxDecimalPlaces: 2 })
     @IsNotEmpty()
+    @IsPositive()
     @Column({ type: "decimal", precision: 10, scale: 2, transformer: new NumericTransformer() })
     valor: number
 

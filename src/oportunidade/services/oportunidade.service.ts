@@ -66,6 +66,13 @@ export class OportunidadeService {
   }
 
   async update(oportunidade: Oportunidade): Promise<Oportunidade> {
+    
+    if (!oportunidade.id)
+      throw new HttpException(
+        'A Oportunidade não foi encontrada!',
+        HttpStatus.NOT_FOUND,
+      );
+
     await this.findById(oportunidade.id);
 
     if (!oportunidade.cliente)

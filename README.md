@@ -125,6 +125,7 @@ Usuario --> Oportunidade
   - O método não deve aceitar a mudança de status caso o status atual já seja **3 (Perdida)**
   - Caso todas as condições sejam satisfeitas, o único valor alterado será o **status**
 
+
 <br /><br />
 
 ## 4. Diagrama Entidade-Relacionamento (DER)
@@ -132,7 +133,7 @@ Usuario --> Oportunidade
 
 
 <div align="center">
-    <img src="https://i.imgur.com/BRotN20.png" title="source: imgur.com" />
+    <img src="https://i.imgur.com/kGsEu5r.png" title="source: imgur.com" />
 </div>
 
 
