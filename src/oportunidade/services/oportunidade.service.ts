@@ -108,13 +108,6 @@ export class OportunidadeService {
 
     let buscaOportunidade = await this.findById(id);
 
-    if (buscaOportunidade.status === 3) {
-      throw new HttpException(
-        'Não é possível alterar o status de uma oportunidade perdida',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
     return await this.oportunidadeRepository.save({
       ...buscaOportunidade,
       status: novoStatus,

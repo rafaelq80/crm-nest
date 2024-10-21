@@ -11,10 +11,10 @@
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { OportunidadeService } from '../services/oportunidade.service';
-import { Oportunidade } from '../entities/oportunidade.entity';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { Oportunidade } from '../entities/oportunidade.entity';
+import { OportunidadeService } from '../services/oportunidade.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('/oportunidades')
