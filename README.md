@@ -1,4 +1,4 @@
-# Projeto CRM
+# Projeto CRM - Backend
 
 <br />
 
@@ -9,7 +9,7 @@
 
 <br /><br />
 
-## 1. O que é um Sistema de CRM?
+## 1. Descrição
 
 **CRM (Customer Relationship Management)** é um conceito que abrange estratégias, práticas e tecnologias usadas por empresas para gerenciar e analisar as interações com seus clientes e potenciais clientes ao longo de todo o ciclo de relacionamento. O objetivo principal de um sistema CRM é melhorar o atendimento, aumentar a fidelização e, como resultado, impulsionar as vendas.
 
@@ -22,7 +22,7 @@ Um sistema de CRM oferece diversos benefícios:
 
 Esses sistemas geralmente operam por meio de plataformas web ou aplicativos móveis, permitindo que os usuários cadastrem clientes, gerenciem oportunidades de negócios e acompanhem relatórios de desempenho em tempo real.
 
-<br />
+------
 
 ## 2. Sobre esta API
 
@@ -52,7 +52,7 @@ Neste projeto, será desenvolvido um **Mínimo Produto Viável (MVP)** de um sis
 3. Criação e gerenciamento de oportunidades
 4. Alteração do status
 
-<br /><br />
+------
 
 ## 3. Diagrama de Classes
 
@@ -125,8 +125,7 @@ Usuario --> Oportunidade
   - O método não deve aceitar a mudança de status caso o status atual já seja **3 (Perdida)**
   - Caso todas as condições sejam satisfeitas, o único valor alterado será o **status**
 
-
-<br /><br />
+------
 
 ## 4. Diagrama Entidade-Relacionamento (DER)
 
@@ -137,8 +136,7 @@ Usuario --> Oportunidade
 </div>
 
 
-
-<br /><br />
+------
 
 ## 5. Tecnologias utilizadas
 
@@ -150,7 +148,7 @@ Usuario --> Oportunidade
 | **ORM**                       | TypeORM    |
 | **Banco de dados Relacional** | MySQL      |
 
-<br /><br />
+------
 
 ## 6. Configuração e Execução
 
