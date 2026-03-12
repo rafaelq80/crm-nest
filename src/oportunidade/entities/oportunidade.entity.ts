@@ -16,7 +16,7 @@ export class Oportunidade{
     @IsNotEmpty() 
     @Column({length: 255, nullable: false})
     @ApiProperty() 
-    nome: string;
+    descricao: string;
  
     @IsNumber({ maxDecimalPlaces: 2 })
     @IsNotEmpty()

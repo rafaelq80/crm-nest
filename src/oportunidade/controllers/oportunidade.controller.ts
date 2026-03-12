@@ -35,10 +35,10 @@ export class OportunidadeController {
     return this.oportunidadeService.findById(id);
   }
 
-  @Get('/nome/:nome')
+  @Get('/descricao/:descricao')
   @HttpCode(HttpStatus.OK)
-  findByNome(@Param('nome') nome: string): Promise<Oportunidade[]> {
-    return this.oportunidadeService.findByNome(nome);
+  findByDescricao(@Param('descricao') descricao: string): Promise<Oportunidade[]> {
+    return this.oportunidadeService.findByDescricao(descricao);
   }
 
   @Post()

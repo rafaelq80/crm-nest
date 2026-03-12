@@ -13,7 +13,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       useClass: ProdService,
-      imports: [ConfigModule],
+      imports: [ConfigModule], 
     }),
     OportunidadeModule,
     ClienteModule,

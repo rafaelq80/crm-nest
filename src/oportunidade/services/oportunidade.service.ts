@@ -41,10 +41,10 @@ export class OportunidadeService {
     return buscaOportunidade;
   }
 
-  async findByNome(nome: string): Promise<Oportunidade[]> {
+  async findByDescricao(descricao: string): Promise<Oportunidade[]> {
     return await this.oportunidadeRepository.find({
       where: {
-        nome: ILike(`%${nome}%`),
+        descricao: ILike(`%${descricao}%`),
       },
       relations: {
         cliente: true,
