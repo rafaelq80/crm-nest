@@ -61,7 +61,9 @@ classDiagram
 class Cliente {
   - id : number
   - nome : string
+  - cnpj : string
   - email : string
+  - telefone : string
   - foto : string
   - historico : string
   - oportunidade : []Oportunidade
@@ -74,7 +76,7 @@ class Cliente {
 }
 class Oportunidade {
   - id : number
-  - nome : string
+  - descricao : string
   - valor : number
   - dataAbertura : Date
   - dataFechamento : Date
@@ -83,7 +85,7 @@ class Oportunidade {
   - usuario : Usuario
   + findAll()
   + findById(id : number)
-  + findByNome(nome : string)
+  + findByDescricao(descricao : string)
   + create(oportunidade : Oportunidade)
   + update(oportunidade : Oportunidade)
   + delete(id : number)
@@ -132,8 +134,9 @@ Usuario --> Oportunidade
 
 
 <div align="center">
-    <img src="https://i.imgur.com/kGsEu5r.png" title="source: imgur.com" />
+    <img src="https://imgur.com/VjOcd0g.png" title="source: imgur.com" />
 </div>
+
 
 
 ------
